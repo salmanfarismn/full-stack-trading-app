@@ -1,0 +1,12 @@
+.vchart-row {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 2rem;
+}
+
+.dchart-row {
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+}

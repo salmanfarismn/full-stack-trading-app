@@ -1,9 +1,13 @@
 import React from "react";
+import { Cookies } from "react-cookie";
 import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg border-bottom" style={{ backgroundColor: "#FFF" }}>
+    <nav
+      className="navbar navbar-expand-lg border-bottom"
+      style={{ backgroundColor: "#FFF" }}
+    >
       <div className="container p-2">
         <NavLink className="navbar-brand" to="/">
           <img src="/images/logo.svg" style={{ width: "25%" }} alt="Logo" />
@@ -23,11 +27,6 @@ function Navbar() {
           <form className="d-flex" role="search">
             <ul className="navbar-nav mb-lg-0">
               <li className="nav-item">
-                <NavLink className="nav-link" to="/signup">
-                  Signup
-                </NavLink>
-              </li>
-              <li className="nav-item">
                 <NavLink className="nav-link" to="/about">
                   About
                 </NavLink>
@@ -46,6 +45,25 @@ function Navbar() {
                 <NavLink className="nav-link" to="/support">
                   Support
                 </NavLink>
+              </li>
+
+              {/* Implement the feature:
+                Show login/signup only if the user is not authenticated
+                else show logout */}
+
+
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/login">
+                  Login
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/signup">
+                  Signup
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/logout">Logout</NavLink>
               </li>
             </ul>
           </form>

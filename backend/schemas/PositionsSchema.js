@@ -1,14 +1,38 @@
 const { Schema } = require("mongoose");
 
 const PositionsSchema = new Schema({
-  product: String,
-  name: String,
-  qty: Number,
-  avg: Number,
-  price: Number,
-  net: String,
-  day: String,
-  isLoss: Boolean,
+    product: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    qty: {
+        type: Number,
+        required: true
+    },
+    avg: {
+        type: Number,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    net: {
+        type: String,
+        required: true
+    },
+    day: {
+        type: String,
+        required: true
+    },
+    isLoss: {
+        type: Boolean,
+        required: true
+    }
 });
 
 module.exports = { PositionsSchema };
