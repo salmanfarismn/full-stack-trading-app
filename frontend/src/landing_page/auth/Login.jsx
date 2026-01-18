@@ -10,6 +10,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({});
 
   const { email, password } = inputValue;
   const handleOnChange = (e) => {
@@ -18,6 +19,7 @@ const Login = () => {
       ...inputValue,
       [name]: value,
     });
+    setErrors({ ...errors, [name]: "", general: "" });
   };
 
   const handleError = (err) =>
@@ -25,12 +27,10 @@ const Login = () => {
       position: "bottom-left",
     });
 
-
   const handleSuccess = (msg) =>
     toast.success(msg, {
       position: "bottom-left",
     });
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,25 +40,22 @@ const Login = () => {
         {
           ...inputValue,
         },
-        { withCredentials: true }
+        { withCredentials: true },
       );
-
-      console.log(data);
 
       const { success, message } = data;
       if (success) {
         handleSuccess(message);
         setTimeout(() => {
-          navigate("/");
+          window.location.href = "http://localhost:3001";
         }, 1000);
       } else {
-        handleError(message);
+        setErrors({ general: message });
       }
     } catch (error) {
       console.log(error);
     }
 
-    
     setInputValue({
       ...inputValue,
       email: "",
@@ -79,6 +76,7 @@ const Login = () => {
             placeholder="Enter your email"
             onChange={handleOnChange}
           />
+          {errors.email && <span className="error">{errors.email}</span>}
         </div>
         <div>
           <label htmlFor="password">Password</label>
@@ -89,7 +87,11 @@ const Login = () => {
             placeholder="Enter your password"
             onChange={handleOnChange}
           />
+          {errors.password && <span className="error">{errors.password}</span>}
         </div>
+        {errors.general && (
+          <div className="error general">{errors.general}</div>
+        )}
         <button type="submit">Submit</button>
         <span>
           Don’t have an account? <Link to={"/signup"}>Signup</Link>

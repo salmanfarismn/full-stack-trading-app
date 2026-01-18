@@ -9,22 +9,24 @@ const Signup = () => {
   const [inputValue, setInputValue] = useState({
     email: "",
     username: "",
-    password: ""
+    password: "",
   });
+  const [errors, setErrors] = useState({});
 
   const { email, username, password } = inputValue;
-  
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInputValue({
       ...inputValue,
-      [name] : value
+      [name]: value,
     });
+    setErrors({ ...errors, [name]: "", general: "" });
   };
 
   const handleError = (err) => {
     toast.error(err, {
-      position: "bottom-left"
+      position: "bottom-left",
     });
   };
 
@@ -37,18 +39,22 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("http://localhost:3002/signup", { ...inputValue }, { withCredentials: true });
+      const { data } = await axios.post(
+        "http://localhost:3002/signup",
+        { ...inputValue },
+        { withCredentials: true },
+      );
       // console.log(data);
       const { success, message } = data;
-      if(success) {
+      if (success) {
         handleSuccess(message);
         setTimeout(() => {
-          navigate("/login");
+          window.location.href = "http://localhost:3001";
         }, 1000);
       } else {
-        handleError(message);
+        setErrors({ general: message });
       }
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
 
@@ -56,10 +62,9 @@ const Signup = () => {
       ...inputValue,
       email: "",
       username: "",
-      password: ""
+      password: "",
     });
   };
-
 
   return (
     <div className="form_container">
@@ -74,6 +79,7 @@ const Signup = () => {
             value={email}
             onChange={handleOnChange}
           />
+          {errors.email && <span className="error">{errors.email}</span>}
         </div>
         <div>
           <label htmlFor="username">Username</label>
@@ -84,6 +90,7 @@ const Signup = () => {
             value={username}
             onChange={handleOnChange}
           />
+          {errors.username && <span className="error">{errors.username}</span>}
         </div>
         <div>
           <label htmlFor="password">Password</label>
@@ -94,7 +101,11 @@ const Signup = () => {
             value={password}
             onChange={handleOnChange}
           />
+          {errors.password && <span className="error">{errors.password}</span>}
         </div>
+        {errors.general && (
+          <div className="error general">{errors.general}</div>
+        )}
         <div>
           <button type="submit">Submit</button>
           <span>

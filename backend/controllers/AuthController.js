@@ -31,6 +31,7 @@ module.exports.Signup = async(req, res, next) => {
         next();
     } catch(err) {
         console.error(err);
+        res.status(400).json({ message: err.message || "Signup failed", success: false });
     }
 }
 
@@ -64,5 +65,6 @@ module.exports.Login = async(req, res, next) => {
         next();
     } catch(error) {
         console.error(error);
+        res.status(400).json({ message: error.message || "Login failed", success: false });
     }
 };

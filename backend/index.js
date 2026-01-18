@@ -12,6 +12,7 @@ const authRoute = require("./routes/AuthRoute");
 const { PositionsModel } = require("./model/PositionsModel");
 const { HoldingsModel } = require("./model/HoldingsModel");
 const { OrdersModel } = require("./model/OrdersModel");
+const { userVerification } = require("./middlewares/AuthMiddleware");
 
 const app = express();
 const PORT = process.env.PORT || 3002;
@@ -20,7 +21,7 @@ const URL = process.env.MONGO_URL;
 app.use(bodyParser.json());
 app.use(cookiePaser());
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000", "http://localhost:3001"],
   credentials: true
 }));
 
@@ -210,6 +211,7 @@ app.get("/allOrders", async(req, res) => {
   let allOrders = await OrdersModel.find({});
   res.json(allOrders);
 });
+
 
 app.post("/newOrder", async(req, res) => {
   let newOrder = new OrdersModel({

@@ -12,33 +12,30 @@ const AuthPage = () => {
   useEffect(() => {
     const verifyCookie = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3002/auth",
-          { withCredentials: true, }
-        );
+        const { data } = await axios.get("http://localhost:3002/auth", {
+          withCredentials: true,
+        });
 
-        console.log(data);
-
-        if(!data.status) {
+        if (!data.status) {
           removeCookie("token");
           navigate("/login");
         } else {
           setUsername(data.user);
           toast(`Hello ${data.user}`);
         }
-
-      } catch(err) {
+      } catch (err) {
         navigate("/login");
         console.error(err);
       }
     };
-      verifyCookie();
+    verifyCookie();
   }, []);
-
 
   const Logout = () => {
     removeCookie("token");
     navigate("/login");
   };
+
   return (
     <>
       <div className="home_page">
@@ -46,7 +43,7 @@ const AuthPage = () => {
           {" "}
           Welcome <span>{username}</span>
         </h4>
-        <button onClick={Logout}>LOGOUT</button>
+        {username && <button onClick={Logout}>Logout</button>}
       </div>
       <ToastContainer />
     </>
