@@ -24,7 +24,8 @@ module.exports.Signup = async(req, res, next) => {
         const token = createSecretToken(user._id);
         res.cookie("token", token, {
             httpOnly: true,
-            sameSite: "lax"
+            sameSite: "none",
+            secure: true
         });
 
         // Don't directly send the user because of security reasons, It may contain senesitive datas!
@@ -71,7 +72,8 @@ module.exports.Login = async(req, res, next) => {
         const token = createSecretToken(user._id);
         res.cookie("token", token, {
             httpOnly: true,
-            sameSite: "lax"
+            sameSite: "none",
+            secure: true
         }); 
 
         res.status(201).json({ message: "User loged in successfully!", success: true });
