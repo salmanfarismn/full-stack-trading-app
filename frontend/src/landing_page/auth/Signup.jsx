@@ -56,6 +56,9 @@ const Signup = () => {
       }
     } catch (error) {
       console.log(error);
+      const errorMsg = error.response?.data?.message || "Signup failed. Please try again.";
+      handleError(errorMsg);
+      setErrors({ general: errorMsg });
     }
 
     setInputValue({

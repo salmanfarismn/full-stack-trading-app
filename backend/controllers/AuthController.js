@@ -5,9 +5,19 @@ const bcrypt = require("bcrypt");
 module.exports.Signup = async(req, res, next) => {
     try {
         const { email, username, password } = req.body;
-        const existingUser  = await User.findOne({ email });
-        if(existingUser ) {
-            return res.json({ message: "User already exists!" });
+
+        // Validate required fields before hitting the database
+        if (!email || !username || !password) {
+            return res.status(400).json({ message: "All fields are required!", success: false });
+        }
+
+        if (password.length < 8) {
+            return res.status(400).json({ message: "Password must have 8 characters or more", success: false });
+        }
+
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(409).json({ message: "User already exists!", success: false });
         }
 
         const user = await User.create({ email, username, password });
@@ -28,9 +38,12 @@ module.exports.Signup = async(req, res, next) => {
                 createdAt: user.createdAt
             }
         });
-        next();
     } catch(err) {
         console.error(err);
+        // Handle MongoDB duplicate key error
+        if (err.code === 11000) {
+            return res.status(409).json({ message: "User already exists!", success: false });
+        }
         res.status(400).json({ message: err.message || "Signup failed", success: false });
     }
 }
@@ -62,7 +75,6 @@ module.exports.Login = async(req, res, next) => {
         }); 
 
         res.status(201).json({ message: "User loged in successfully!", success: true });
-        next();
     } catch(error) {
         console.error(error);
         res.status(400).json({ message: error.message || "Login failed", success: false });
