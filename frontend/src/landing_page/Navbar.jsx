@@ -9,7 +9,7 @@ function Navbar() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get("http://localhost:3002/auth", {
+        const response = await axios.get("https://full-stack-trading-app-nyyt.onrender.com/auth", {
           withCredentials: true,
         });
         if (response.data.status) {
@@ -27,7 +27,7 @@ function Navbar() {
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://localhost:3002/logout",
+        "https://full-stack-trading-app-nyyt.onrender.com/logout",
         {},
         { withCredentials: true },
       );

@@ -12,7 +12,7 @@ const SellActionWindow = ({ uid }) => {
   const [stockPrice, setStockPrice] = useState(0.0);
 
   const handleSellClick = () => {
-    axios.post("http://localhost:3002/newOrder", {
+    axios.post("https://full-stack-trading-app-nyyt.onrender.com/newOrder", {
       name: uid,
       qty: stockQuantity,
       price: stockPrice,

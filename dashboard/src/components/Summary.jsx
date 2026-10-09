@@ -6,7 +6,7 @@ import axios from "axios";
 const Summary = () => {
   const [username, setUsername] = useState("User");
   useEffect(() => {
-    axios.get("http://localhost:3002/dashboard", {
+    axios.get("https://full-stack-trading-app-nyyt.onrender.com/dashboard", {
       withCredentials: true
     })
       .then(res => console.log(res.data))

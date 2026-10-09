@@ -5,7 +5,7 @@ import axios from "axios";
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3002/allOrders").then((res) => {
+    axios.get("https://full-stack-trading-app-nyyt.onrender.com/allOrders").then((res) => {
       console.log(res.data);
       setOrders(res.data);
     });

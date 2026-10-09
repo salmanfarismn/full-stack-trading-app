@@ -10,18 +10,18 @@ const Home = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get("http://localhost:3002/auth", {
+        const response = await axios.get("https://full-stack-trading-app-nyyt.onrender.com/auth", {
           withCredentials: true,
         });
         if (response.data.status) {
           setIsAuthenticated(true);
         } else {
           setIsAuthenticated(false);
-          window.location.href = "http://localhost:3000/login";
+          window.location.href = "https://main.d3sp359p7k5wy0.amplifyapp.com/login";
         }
       } catch (error) {
         setIsAuthenticated(false);
-        window.location.href = "http://localhost:3000/login";
+        window.location.href = "https://main.d3sp359p7k5wy0.amplifyapp.com/login";
       }
     };
     checkAuth();

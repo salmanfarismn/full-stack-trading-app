@@ -12,7 +12,7 @@ const AuthPage = () => {
   useEffect(() => {
     const verifyCookie = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3002/auth", {
+        const { data } = await axios.get("https://full-stack-trading-app-nyyt.onrender.com/auth", {
           withCredentials: true,
         });
 

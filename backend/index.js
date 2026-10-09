@@ -21,7 +21,10 @@ const URL = process.env.MONGO_URL;
 app.use(bodyParser.json());
 app.use(cookiePaser());
 app.use(cors({
-  origin: ["http://localhost:3000", "http://localhost:3001"],
+  origin: [
+    "https://main.d3sp359p7k5wy0.amplifyapp.com",
+    "https://full-stack-trading-app-mauve.vercel.app",
+  ],
   credentials: true
 }));
 

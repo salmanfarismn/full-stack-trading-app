@@ -18,11 +18,11 @@ const Menu = () => {
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://localhost:3002/logout",
+        "https://full-stack-trading-app-nyyt.onrender.com/logout",
         {},
         { withCredentials: true },
       );
-      window.location.href = "http://localhost:3000/login";
+      window.location.href = "https://main.d3sp359p7k5wy0.amplifyapp.com/login";
     } catch (error) {
       console.error("Logout failed", error);
     }
